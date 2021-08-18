@@ -150,10 +150,10 @@ export default {
       // const withdrawEthRes = await testBridge.withdrawETH(ethFromL2WithdrawAmount)
       // const withdrawEthRec = await withdrawEthRes.wait()
 
-      bridge.withdrawETH(ethFromL2WithdrawAmount, {gasLimit: 0x933212 })
+      bridge.withdrawETH(ethFromL2WithdrawAmount)
       .then(async res2=>{
         // Toast.fail(`交易已取消`);
-        //执行交易
+        //执行交易, TODO 拿到hash之后，就开始把下面的代码进行异步执行， 可以考虑用户自己刷新。
         const initiatingTxnReceipt = await bridge.l2Provider.getTransactionReceipt(
                 res2.transactionHash
                 )
@@ -202,9 +202,9 @@ export default {
     }
   }
    const res = await bridge.triggerL2ToL1Transaction(batchNumber, indexInBatch)
-  const rec = await res.wait()
+  //const rec = await res.wait()
 
-  console.log('Done! Your transaction is executed')
+  console.log('Done! Your transaction is executed', res)
 
 
         const walletL1EthBalance = await getAvailableBalanceForL1()
